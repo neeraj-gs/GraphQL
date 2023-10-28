@@ -1,1 +1,31 @@
-GraphQL Basic Project
+GraphQL TodoList Project
+
+Problems With Rest API 
+   GET /todos 
+   
+   1.
+   Server returns an array of todos , that contains a lot of keys like userID,todoId,title,descrition etc...
+   But the client renders only title on the frontend , all the other unnecessary data reduces the bandwidth and unnecessary data is sent over the internet 
+
+   2.
+   CLient wants the name of the userID creted a TOdo , we need to do a seperate API Call 
+   Server returns an array of users, that has all the keys such as adress, phone etc.. but required only name 
+
+Solutions to REST API by GraphQL 
+
+   1.
+   Client can request only the specific data from the server
+   CLient speciffies exactly the data they want. 
+   todos{
+      title //only title is retured by server
+   }
+
+   2.
+   Client can send Nested Queries to reduve number of API requiest calling
+   todos{
+      title
+      user{
+         name 
+      }
+   }
+   //we get the name of user who has created this todo
