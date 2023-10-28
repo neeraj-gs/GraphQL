@@ -18,7 +18,13 @@ async function startServer(){ // set up and start the Express server with Apollo
             getTodos:[Todo]
          }
       `,
-      resolvers: './src/resolvers.js'
+      resolvers: {
+         Query:{
+            getTodos:()=>{
+               return [{id:1,title:'test',completed:false}]
+            }
+         }
+      }
    }); //creates a new instance of apollo server,inside confid has typeDefs and resolvers
 
    app.use(bodyParser.json())

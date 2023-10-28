@@ -38,6 +38,6 @@ typeDefs:
 
    FIrst ly we need to write th scema and specify teh typeDefs
 
-QUery 
+Query 
    We need to write queries to fetch somethign from graphql server and to add into server mutation
-   
+
