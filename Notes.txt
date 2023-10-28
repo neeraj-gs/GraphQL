@@ -32,3 +32,6 @@ Solutions to REST API by GraphQL
 
 
 Apollo is a Framework used to Run Graphql Server 
+Graphql needs to know what operatiosn to be performsed  ,schemasd has to be told pre finned
+we need ot give the type of our scehma 
+typeDefs:
