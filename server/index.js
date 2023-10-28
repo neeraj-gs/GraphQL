@@ -6,7 +6,20 @@ const cors = require('cors');
 
 async function startServer(){ // set up and start the Express server with Apollo Server integrated.
    const app = express();
-   const server = new ApolloServer({}); //creates a new instance of apollo server,inside confid has typeDefs and resolvers
+   const server = new ApolloServer({
+      typeDefs: `
+         type Todo{
+            id:ID!
+            title:String!
+            completed:Boolean
+         }
+
+         type Query{
+            getTodos:[Todo]
+         }
+      `,
+      resolvers: './src/resolvers.js'
+   }); //creates a new instance of apollo server,inside confid has typeDefs and resolvers
 
    app.use(bodyParser.json())
    app.use(cors());

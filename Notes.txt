@@ -35,3 +35,9 @@ Apollo is a Framework used to Run Graphql Server
 Graphql needs to know what operatiosn to be performsed  ,schemasd has to be told pre finned
 we need ot give the type of our scehma 
 typeDefs:
+
+   FIrst ly we need to write th scema and specify teh typeDefs
+
+QUery 
+   We need to write queries to fetch somethign from graphql server and to add into server mutation
+   
