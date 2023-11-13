@@ -3,6 +3,8 @@ const {ApolloServer} = require('@apollo/server') //apoloo is a library used ot c
 const {expressMiddleware} = require('@apollo/server/express4') //integrates apollo server with express
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { default: axios } = require('axios');
+
 
 async function startServer(){ // set up and start the Express server with Apollo Server integrated.
    const app = express();
@@ -20,8 +22,8 @@ async function startServer(){ // set up and start the Express server with Apollo
       `,
       resolvers: { //all the logic of query and mutation is written in the resolvers
          Query:{
-            getTodos:()=>{
-               return [{id:1,title:'test',completed:false}]
+            getTodos:async()=>{
+               (await axios.get('https://jsonplaceholder.typicode.com/todos')).data
             }
          }
       }
