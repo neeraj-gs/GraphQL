@@ -18,7 +18,7 @@ async function startServer(){ // set up and start the Express server with Apollo
             getTodos:[Todo]
          }
       `,
-      resolvers: {
+      resolvers: { //all the logic of query and mutation is written in the resolvers
          Query:{
             getTodos:()=>{
                return [{id:1,title:'test',completed:false}]
