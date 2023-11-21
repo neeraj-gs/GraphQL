@@ -34,7 +34,9 @@ async function startServer(){ // set up and start the Express server with Apollo
          }
       `, //int the typedefs we will only mention the data nad what it writtens , only name of the funotin and return
       resolvers: { //all the logic of query and mutation is written in the resolvers
-         Todo:{
+         Todo:{ 
+            //to tell gql , in TODO if someone asks user , that todo is taking its parent and then get shte user
+            //takes the API call , and from the todo.id gets the parent
             user: async(todo)=>{
                try {
                   const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${todo.id}`);
