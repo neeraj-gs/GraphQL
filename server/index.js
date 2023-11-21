@@ -29,6 +29,7 @@ async function startServer(){ // set up and start the Express server with Apollo
          type Query{
             getTodos:[Todo]
             getAllUsers: [User]
+            getUser(id:ID!): User
          }
       `, //int the typedefs we will only mention the data nad what it writtens , only name of the funotin and return
       resolvers: { //all the logic of query and mutation is written in the resolvers
@@ -45,6 +46,15 @@ async function startServer(){ // set up and start the Express server with Apollo
             getAllUsers:async()=>{
                try {
                   const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+                  return response.data; // Return the fetched todos
+               } catch (error) {
+                  console.error("Error fetching todos:", error);
+                  return []; // Return an empty array or handle the error accordingly
+               }
+            },
+            getUser:async(parent,{id})=>{
+               try {
+                  const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
                   return response.data; // Return the fetched todos
                } catch (error) {
                   console.error("Error fetching todos:", error);
