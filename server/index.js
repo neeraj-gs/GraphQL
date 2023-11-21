@@ -86,8 +86,6 @@ async function startServer(){ // set up and start the Express server with Apollo
          //       }
          //    },
          // }
-
-
          Todo:{
             user: (todo) => USERS.find(e=> e.id === todo.id),
          },
