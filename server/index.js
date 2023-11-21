@@ -13,6 +13,11 @@ async function startServer(){ // set up and start the Express server with Apollo
 
          type User{
             id:ID!
+            name:String!
+            username:String!
+            email:String!
+            phone:String!
+            website:String!
          }
 
          type Todo{
@@ -23,6 +28,7 @@ async function startServer(){ // set up and start the Express server with Apollo
 
          type Query{
             getTodos:[Todo]
+            getAllUsers: [User]
          }
       `, //int the typedefs we will only mention the data nad what it writtens , only name of the funotin and return
       resolvers: { //all the logic of query and mutation is written in the resolvers
@@ -35,7 +41,16 @@ async function startServer(){ // set up and start the Express server with Apollo
                   console.error("Error fetching todos:", error);
                   return []; // Return an empty array or handle the error accordingly
                }
-            }
+            },
+            getAllUsers:async()=>{
+               try {
+                  const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+                  return response.data; // Return the fetched todos
+               } catch (error) {
+                  console.error("Error fetching todos:", error);
+                  return []; // Return an empty array or handle the error accordingly
+               }
+            },
          }
       }
    }); //creates a new instance of apollo server,inside confid has typeDefs and resolvers
