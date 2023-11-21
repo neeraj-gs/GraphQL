@@ -28,7 +28,13 @@ async function startServer(){ // set up and start the Express server with Apollo
       resolvers: { //all the logic of query and mutation is written in the resolvers
          Query:{
             getTodos:async()=>{
-               (await axios.get('https://jsonplaceholder.typicode.com/todos')).data
+               try {
+                  const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+                  return response.data; // Return the fetched todos
+               } catch (error) {
+                  console.error("Error fetching todos:", error);
+                  return []; // Return an empty array or handle the error accordingly
+               }
             }
          }
       }
