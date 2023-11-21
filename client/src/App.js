@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
 import ClipLoader from "react-spinners/ClipLoader";
-import './App.css';
 
 const query = gql`
   query GetTodosWithUser {
@@ -33,10 +32,22 @@ function App() {
 
     
   } 
-  console.log(data)
   return (
     <div>
-      {JSON.stringify(data)}
+      <table>
+        <tbody>
+          {
+            data.getTodos.map(t=> <tr key={t.id}>
+              {t.user?.name? <>
+                <td>{t.title}</td>
+                <td>{t.user?.name}</td> 
+              </>
+              
+            : ""}
+            </tr>)
+          }
+        </tbody>
+      </table>
     </div>
   );
 }
