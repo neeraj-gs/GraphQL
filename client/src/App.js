@@ -1,20 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import {ApolloClient, InMemoryCache} from '@apollo/client'
+import {gql, useQuery} from '@apollo/client'
 
-
-const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
-  cache: new InMemoryCache(),
-})
-
-
-const query = `
-  query GetTodos {
+const query = gql`
+  query GetTodosWithUser {
     getTodos{
+      id
       title
       completed
       user{
+        id
         name
       }
     }
@@ -24,6 +19,7 @@ const query = `
 
 
 function App() {
+  const  {data,loading} = useQuery(query) //actual data and laoding is getting rendered
   return (
     <div className="App">
       <header className="App-header">
