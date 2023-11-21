@@ -10,6 +10,11 @@ async function startServer(){ // set up and start the Express server with Apollo
    const app = express();
    const server = new ApolloServer({
       typeDefs: `
+
+         type User{
+            id:ID!
+         }
+
          type Todo{
             id:ID!
             title:String!
@@ -19,7 +24,7 @@ async function startServer(){ // set up and start the Express server with Apollo
          type Query{
             getTodos:[Todo]
          }
-      `,
+      `, //int the typedefs we will only mention the data nad what it writtens , only name of the funotin and return
       resolvers: { //all the logic of query and mutation is written in the resolvers
          Query:{
             getTodos:async()=>{
@@ -37,7 +42,7 @@ async function startServer(){ // set up and start the Express server with Apollo
    app.use('/graphql',expressMiddleware(server)); //when some requiest comes to /graphql endppint expressMIdeware handles 
 
    app.listen(8000,()=>{
-      console.log('Server is running on port 8000');
+      console.log(`Server is running on port http://localhost:8000`);
    })
 }
 
