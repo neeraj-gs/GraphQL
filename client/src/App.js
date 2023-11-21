@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+import { gql, useQuery } from '@apollo/client';
+import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
-import {gql, useQuery} from '@apollo/client'
 
 const query = gql`
   query GetTodosWithUser {
@@ -20,22 +20,23 @@ const query = gql`
 
 function App() {
   const  {data,loading} = useQuery(query) //actual data and laoding is getting rendered
+  if(loading){
+    return(
+      <ClipLoader
+        color={"#000000"}
+        loading={loading}
+        size={150}
+        aria-label="Loading"
+        data-testid="loader"
+      />
+    )
+
+    
+  } 
+  console.log(data)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {JSON.stringify(data)}
     </div>
   );
 }
