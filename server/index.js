@@ -5,6 +5,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { default: axios } = require('axios');
 
+const {USERS} = require('./user')
+const {TODOS} = require('./todos')
+//ADDED A FAKE DATABSE OF USER ANAD TODOS BECAUSE THERE IS A RATE LIMIT ON THE DATA BEING FETCHED  AS IT IS AN EXTERNAL API
+
 
 async function startServer(){ // set up and start the Express server with Apollo Server integrated.
    const app = express();
@@ -34,47 +38,64 @@ async function startServer(){ // set up and start the Express server with Apollo
          }
       `, //int the typedefs we will only mention the data nad what it writtens , only name of the funotin and return
       resolvers: { //all the logic of query and mutation is written in the resolvers
-         Todo:{ 
-            //to tell gql , in TODO if someone asks user , that todo is taking its parent and then get shte user
-            //takes the API call , and from the todo.id gets the parent
-            user: async(todo)=>{
-               try {
-                  const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${todo.id}`);
-                  return response.data; // Return the fetched todos
-               } catch (error) {
-                  console.error("Error fetching todos:", error);
-                  return []; // Return an empty array or handle the error accordingly
-               }
-            },
+         // Todo:{ 
+         //    //to tell gql , in TODO if someone asks user , that todo is taking its parent and then get shte user
+         //    //takes the API call , and from the todo.id gets the parent
+         //    user: async(todo)=>{
+         //       try {
+         //          const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${todo.id}`);
+         //          return response.data; // Return the fetched todos
+         //       } catch (error) {
+         //          console.error("Error fetching todos:", error);
+         //          return []; // Return an empty array or handle the error accordingly
+         //       }
+         //    },
+         // },
+
+
+
+
+
+
+         // Query:{
+         //    getTodos:async()=>{
+         //       try {
+         //          const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+         //          return response.data; // Return the fetched todos
+         //       } catch (error) {
+         //          console.error("Error fetching todos:", error);
+         //          return []; // Return an empty array or handle the error accordingly
+         //       }
+         //    },
+         //    getAllUsers:async()=>{
+         //       try {
+         //          const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+         //          return response.data; // Return the fetched todos
+         //       } catch (error) {
+         //          console.error("Error fetching todos:", error);
+         //          return []; // Return an empty array or handle the error accordingly
+         //       }
+         //    },
+         //    getUser:async(parent,{id})=>{
+         //       try {
+         //          const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+         //          return response.data; // Return the fetched todos
+         //       } catch (error) {
+         //          console.error("Error fetching todos:", error);
+         //          return []; // Return an empty array or handle the error accordingly
+         //       }
+         //    },
+         // }
+
+
+         Todo:{
+            user: (todo) => USERS.find(e=> e.id === id),
          },
+
          Query:{
-            getTodos:async()=>{
-               try {
-                  const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-                  return response.data; // Return the fetched todos
-               } catch (error) {
-                  console.error("Error fetching todos:", error);
-                  return []; // Return an empty array or handle the error accordingly
-               }
-            },
-            getAllUsers:async()=>{
-               try {
-                  const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-                  return response.data; // Return the fetched todos
-               } catch (error) {
-                  console.error("Error fetching todos:", error);
-                  return []; // Return an empty array or handle the error accordingly
-               }
-            },
-            getUser:async(parent,{id})=>{
-               try {
-                  const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
-                  return response.data; // Return the fetched todos
-               } catch (error) {
-                  console.error("Error fetching todos:", error);
-                  return []; // Return an empty array or handle the error accordingly
-               }
-            },
+             getTodos: () => TODOS,
+             getAllUsers: () => USERS,
+             getUser:(parent,{id})=> USERS.find(e=> e.id === id)
          }
       }
    }); //creates a new instance of apollo server,inside confid has typeDefs and resolvers
