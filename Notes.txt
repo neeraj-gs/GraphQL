@@ -6,10 +6,13 @@ Problems With Rest API
    1.
    Server returns an array of todos , that contains a lot of keys like userID,todoId,title,descrition etc...
    But the client renders only title on the frontend , all the other unnecessary data reduces the bandwidth and unnecessary data is sent over the internet 
+      GraphQL gives only the Required fields in todo and do not need more of them
+      Diffrent CLietns have diffrent requirements or fields in REST we send all the redundant data, but if we use GraphQL only necessary fields can be requested
 
    2.
-   CLient wants the name of the userID creted a TOdo , we need to do a seperate API Call 
+   CLient wants the name of the userID who creted a TOdo , we need to do a seperate API Call 
    Server returns an array of users, that has all the keys such as adress, phone etc.. but required only name 
+      So we can use GraphQL to use nested queries and get data in a Single Call
 
 Solutions to REST API by GraphQL 
 
